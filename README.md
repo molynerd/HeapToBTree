@@ -1,5 +1,5 @@
 # HeapToBTree
-Script for converting heap tables to a b-tree (adds a clustered index).
+SQL Script for converting heap tables to a b-tree (adds a clustered index).
 
 ## What do I need this for?
 Here's the situation: You're working on a database and you notice there are some heaps that really deserve to be b-tree tables. You've done your research and deemed a clustered index is just what the doctor ordered. The problem is the actual doing of said change. That's where this script comes in.
