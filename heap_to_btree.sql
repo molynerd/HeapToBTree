@@ -1,16 +1,19 @@
 --enter your variables here, then run it
 DECLARE 
-	--the name of the table. casing is important
-	@table_name VARCHAR(1000) = 'StatusMessageTypeAttribute'
-	,@schema VARCHAR(100) = 'ref'
+	--the name of the table. casing is only important for creating a not-weird-looking clustered index name
+	@table_name VARCHAR(1000) = 'MyTable'
+	,@schema VARCHAR(100) = 'dbo'
 	--if you dont want the procedure to actually run this statements, set this to 1 and the necessary statements will be printed out
 	,@show_statements_only BIT = 0;
 
---variables processing, dont mess with this.
+--dont change anything after this line.
 DECLARE @tsql VARCHAR(MAX);
 
 IF @schema = 'sys'
+BEGIN
 	RAISERROR('Hey, you chose the "sys" schema, which suggests you''re trying to change a system table. Don''t do that.', 16, 1)
+	RETURN
+END
 
 IF @show_statements_only = 1
 BEGIN
@@ -29,7 +32,10 @@ IF NOT EXISTS
 	JOIN sys.partitions p ON p.object_id = o.object_id
 	WHERE o.name = @table_name AND p.index_id = 0
 )
+BEGIN
 	RAISERROR('This table is not a heap!', 16, 1)
+	RETURN
+END
 
 /*
 GET PRIMARY KEY CONSTRAINT
@@ -57,9 +63,15 @@ SET @primary_key_name =
 )
 
 IF @primary_key_columns IS NULL OR @primary_key_columns = ''
+BEGIN
 	RAISERROR('Could not find a primary key column! A primary key must be set so we know with which column to create the clustered index.', 16, 1)
+	RETURN
+END
 IF @primary_key_name IS NULL OR @primary_key_name = ''
+BEGIN
 	RAISERROR('Could not find a primary key constraint name! A primary key must be set so we know with which column to create the clustered index.', 16, 1)
+	RETURN
+END
 
 /*
 FOREIGN KEYS
