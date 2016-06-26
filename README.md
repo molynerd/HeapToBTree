@@ -18,3 +18,6 @@ Set this to **1** to *prevent* any changes from occurring. The script will simpl
 - The table must have a primary key (single or composite). The script has to know what column(s) to use when creating the clustered index.
 - The table cannot be a system table. That would be weird. Don't do that.
 - The table must be a heap. Essentially it has no clustered index.
+
+## Testing
+- SQL Server 2014
