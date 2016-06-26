@@ -21,3 +21,6 @@ Set this to **1** to *prevent* any changes from occurring. The script will simpl
 
 ## Testing
 - SQL Server 2014
+
+## TODO
+- Add a testing suite. I'd like to get a series of tests to run so that one could easily run the test case on different versions of SQL Server and verify it works. It'll also help with adding any changes.
