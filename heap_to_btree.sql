@@ -1,9 +1,10 @@
---enter your variables here, then run it
+--edit your variables here, then run it
 DECLARE 
 	--the name of the table. casing is only important for creating a not-weird-looking clustered index name
 	@table_name VARCHAR(1000) = 'MyTable'
 	,@schema VARCHAR(100) = 'dbo'
-	--if you dont want the procedure to actually run this statements, set this to 1 and the necessary statements will be printed out
+	--if you dont want the procedure to actually run this statements, set this to 1 and the necessary statements will returned as a result set
+	--you can then run the statements as necessary. The statements should be executed in order.
 	,@show_statements_only BIT = 0;
 
 --dont change anything after this line.
